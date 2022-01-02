@@ -3,13 +3,14 @@ import './styles/css/App.min.css';
 import getRandomText from './services/textGenerator';
 import useKeyPress from './hooks/useKeyPress';
 import React, { useState, useEffect } from 'react';
+import Result from './components/Result';
 
 function App() {
   const getCurrentTime = () => Date.now();
 
   const [passedChars, setPassedChars] = useState('');
   const [currentChar, setCurrentChar] = useState('');
-  const [isCurCharCorrect, setIsCurCharCorrect] = useState(true);
+  const [curCharCorrect, setCurCharCorrect] = useState(true);
   const [incomingChars, setIncomingChars] = useState('');
 
   const [startTime, setStartTime] = useState(0);
@@ -18,6 +19,16 @@ function App() {
 
   const [accuracy, setAccuracy] = useState(0);
   const [typedChars, setTypedChars] = useState('');
+
+  // inactive, started, loading, active, finished
+  const [showResult, setShowResult] = useState(false)
+  const [appActive, setAppActive] = useState(true)
+
+  const resultProps = {
+    passedChars,
+    cpm,
+    accuracy,
+  };
 
   useEffect(() => {
     (async () => {
@@ -29,13 +40,18 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const cpmTimer = setInterval(() => {
-      const durationInMinutes = (getCurrentTime() - startTime) / (60 * 1000);
-      // console.log('chars ', charCount, 'dur: ', durationInMinutes)
-      setCpm((passedCharsCount / durationInMinutes).toFixed());
-    }, 1000);
+    let cpmTimer = null;
+    if (appActive) {
+      cpmTimer = setInterval(() => {
+        const durationInMinutes = (getCurrentTime() - startTime) / (60 * 1000);
+        // console.log('chars ', charCount, 'dur: ', durationInMinutes)
+        setCpm((passedCharsCount / durationInMinutes).toFixed());
+      }, 500);
+    } else {
+      // mb save in local storage data
+    }
     return () => clearInterval(cpmTimer);
-  }, [startTime, passedCharsCount]);
+  }, [startTime, passedCharsCount, appActive]);
 
   useKeyPress(key => {
     if (!startTime) {
@@ -51,20 +67,27 @@ function App() {
       updatedOutgoingChars += currentChar;
       setPassedChars(updatedOutgoingChars);
 
-      setCurrentChar(incomingChars.charAt(0));
-      setIsCurCharCorrect(true);
-
-      updatedIncomingChars = incomingChars.slice(1);
-      setIncomingChars(updatedIncomingChars);
-
+      if (incomingChars.length) {
+        setCurrentChar(incomingChars.charAt(0));
+        setCurCharCorrect(true);
+        updatedIncomingChars = incomingChars.slice(1);
+        // console.log(updatedIncomingChars)
+        setIncomingChars(updatedIncomingChars);
+      } else {
+        // console.log('the last one')
+        setCurrentChar('');
+        setAppActive(false);
+        setShowResult(true);
+      }
       setPassedCharsCount(passedCharsCount + 1);
     } else {
-      setIsCurCharCorrect(false);
+      setCurCharCorrect(false);
     }
 
     const updatedTypedChars = typedChars + key;
     setTypedChars(updatedTypedChars);
     setAccuracy(((updatedOutgoingChars.length * 100) / updatedTypedChars.length).toFixed(1));
+
   });
 
   return (
@@ -82,16 +105,20 @@ function App() {
         </a>
       </header>
       <main className='App-content'>
+        <button onClick={() => setShowResult(true)}>show ME</button>
         <h3>
-          Скорость: {cpm} зн./мин | Точность: {accuracy}% | 
+          Скорость: {cpm} зн./мин | Точность: {accuracy}% |
           <button onClick={() => window.location.reload(false)} className='app-refresh-button'>Заново</button>
         </h3>
         <div className="generated-text">
           <span className="generated-text_out">
             {passedChars}
           </span>
-          <span className={"generated-text_cur " + (isCurCharCorrect ? "" : "wrong")}>{currentChar}</span>
+          <span className={"generated-text_cur " + (curCharCorrect ? "" : "wrong")}>{currentChar}</span>
           <span>{incomingChars}</span>
+        </div>
+        <div>
+          {showResult ? <Result resultProps={resultProps} /> : 'dont show'}
         </div>
       </main>
     </div>
