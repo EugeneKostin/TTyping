@@ -1,5 +1,5 @@
 import logo from './logo.svg';
-import './App.css';
+import './styles/css/App.min.css';
 import getRandomText from './services/textGenerator';
 import useKeyPress from './hooks/useKeyPress';
 import React, { useState, useEffect } from 'react';
@@ -7,12 +7,13 @@ import React, { useState, useEffect } from 'react';
 function App() {
   const getCurrentTime = () => Date.now();
 
-  const [outgoingChars, setOutgoingChars] = useState('');
+  const [passedChars, setPassedChars] = useState('');
   const [currentChar, setCurrentChar] = useState('');
+  const [isCurCharCorrect, setIsCurCharCorrect] = useState(true);
   const [incomingChars, setIncomingChars] = useState('');
 
   const [startTime, setStartTime] = useState(0);
-  const [charCount, setCharCount] = useState(0);
+  const [passedCharsCount, setPassedCharsCount] = useState(0);
   const [cpm, setCpm] = useState(0);
 
   const [accuracy, setAccuracy] = useState(0);
@@ -31,31 +32,34 @@ function App() {
     const cpmTimer = setInterval(() => {
       const durationInMinutes = (getCurrentTime() - startTime) / (60 * 1000);
       // console.log('chars ', charCount, 'dur: ', durationInMinutes)
-      setCpm((charCount / durationInMinutes).toFixed());
+      setCpm((passedCharsCount / durationInMinutes).toFixed());
     }, 1000);
     return () => clearInterval(cpmTimer);
-  }, [startTime, charCount]);
+  }, [startTime, passedCharsCount]);
 
   useKeyPress(key => {
     if (!startTime) {
       setStartTime(getCurrentTime());
     }
 
-    let updatedOutgoingChars = outgoingChars;
+    let updatedOutgoingChars = passedChars;
     let updatedIncomingChars = incomingChars;
     // console.log('cur: ', currentChar)
     // console.log('inc: ', updatedIncomingChars)
 
     if (key === currentChar) {
       updatedOutgoingChars += currentChar;
-      setOutgoingChars(updatedOutgoingChars);
+      setPassedChars(updatedOutgoingChars);
 
       setCurrentChar(incomingChars.charAt(0));
+      setIsCurCharCorrect(true);
 
       updatedIncomingChars = incomingChars.slice(1);
       setIncomingChars(updatedIncomingChars);
 
-      setCharCount(charCount + 1);
+      setPassedCharsCount(passedCharsCount + 1);
+    } else {
+      setIsCurCharCorrect(false);
     }
 
     const updatedTypedChars = typedChars + key;
@@ -67,6 +71,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
+        <h1 className='App-header__title'>Touch Typing App</h1>
         <a
           className="App-link"
           href="https://reactjs.org"
@@ -78,13 +83,14 @@ function App() {
       </header>
       <main className='App-content'>
         <h3>
-          Скорость: {cpm} зн./мин | Точность: {accuracy}%
+          Скорость: {cpm} зн./мин | Точность: {accuracy}% | 
+          <button onClick={() => window.location.reload(false)} className='app-refresh-button'>Заново</button>
         </h3>
         <div className="generated-text">
           <span className="generated-text_out">
-            {outgoingChars}
+            {passedChars}
           </span>
-          <span className="generated-text_cur">{currentChar}</span>
+          <span className={"generated-text_cur " + (isCurCharCorrect ? "" : "wrong")}>{currentChar}</span>
           <span>{incomingChars}</span>
         </div>
       </main>

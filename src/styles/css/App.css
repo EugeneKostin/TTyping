@@ -1,0 +1,85 @@
+.App {
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-color: #282c34;
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-logo {
+  height: 20vmin;
+  pointer-events: none;
+  -webkit-animation: spin 2s infinite linear;
+          animation: spin 2s infinite linear;
+}
+
+.App-header__title {
+  text-transform: uppercase;
+  font-weight: 400;
+  letter-spacing: .25rem;
+}
+
+.App-content {
+  padding-top: 10%;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+.generated-text {
+  color: lightgray;
+  text-align: left;
+  padding: 0 5%;
+}
+
+.generated-text_cur {
+  background-color: white;
+  padding: .2em .3em;
+  border-radius: 3px;
+  color: #282c34;
+}
+
+.generated-text_cur.wrong {
+  background-color: #ff1c1c;
+}
+
+.generated-text_out {
+  color: lightgreen;
+}
