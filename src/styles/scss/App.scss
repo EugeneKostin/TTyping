@@ -21,7 +21,6 @@ sup {
 	align-items: center;
 	flex-direction: column;
 	justify-content: flex-start;
-	padding-top: 1.2rem;
 	background-color: $main-bg-color;
 	text-align: center;
 	color: $dark-text-color;
@@ -45,6 +44,7 @@ sup {
 	}
 	&-header {
 		@include center-flex;
+		padding-top: 1.2rem;
 	}
 	&-header__title {
 		text-transform: uppercase;
