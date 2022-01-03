@@ -1,91 +1,167 @@
 $react-color: #61dafb;
+$main-bg-color: #fffafa;
+$dark-text-color: #555555;
+$gray-text-color: #999999;
+$light-gray-text-color: #cccccc;
 
-.App {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: #282c34;
-  font-family: 'Roboto', sans-serif;
-  text-align: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-  &-logo {
-    height: 20vmin;
-    pointer-events: none;
-    animation: spin 2s infinite linear;
-    @keyframes spin {
-      from {
-        transform: rotate(0deg);
-      }
-      to {
-        transform: rotate(360deg);
-      }
-    }
+@mixin center-flex {
+	display: flex;
+	justify-content: center;
+	align-items: center;
   }
-  &-header__title {
-    text-transform: uppercase;
-    font-weight: 400;
-    letter-spacing: .25rem;
-  }
-  &-content {
-    padding-top: 10%;
-    &__result-content {
-      z-index: 99;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 80vh;
-      width: 80%;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      background-color: rgba(0,0,0,.9);
-      animation: fade-in .3s ease-out;
-      transform: translate(-50%,-50%);
-      @keyframes fade-in {
-        from {
-          transform: scale(.2) translate(-100%, 100%);
-          opacity: 0;
-        }
-        to {
-          transform: scale(1) translate(-50%, -50%);
-          opacity: 1;
-        }
-      }
-    }
-  }
-  &-link {
-    color: $react-color;
-  }
-  
+
+.app {
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	justify-content: flex-start;
+	padding-top: 1.2rem;
+	background-color: $main-bg-color;
+	font-family: 'Roboto', sans-serif;
+	text-align: center;
+	color: $dark-text-color;
+	&-logo {
+		height: 15vmin;
+		width: auto;
+		pointer-events: none;
+		animation: spin 2.5s infinite linear;
+		@keyframes spin {
+			from {
+				transform: rotate(0deg);
+			}
+			to {
+				transform: rotate(360deg);
+			}
+		}
+		&_loader {
+			animation-duration: 1.5s;
+			height: 10vmin;
+		}
+	}
+	&-header {
+		@include center-flex;
+	}
+	&-header__title {
+		text-transform: uppercase;
+		font-weight: 400;
+		letter-spacing: .25rem;
+	}
+	&-content {
+		padding-top: 5vh;
+		&__result-content {
+			z-index: 99;
+			@include center-flex;
+			min-height: 80vh;
+			width: 80%;
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			background-color: rgba(0,0,0,.9);
+			animation: fade-in .3s ease-out;
+			transform: translate(-50%,-50%);
+			@keyframes fade-in {
+				from {
+					transform: scale(.2) translate(-100%, 100%);
+					opacity: 0;
+				}
+				to {
+					transform: scale(1) translate(-50%, -50%);
+					opacity: 1;
+				}
+			}
+		}
+	}
+	&-stat {
+		@include center-flex;
+		flex-direction: column;
+		padding-top: 2rem;
+		&__container {
+			display: flex;
+		}
+		&__item {
+			margin: 5vmin;
+			font-size: 2rem;
+			text-align: left;
+			letter-spacing: .1em;
+			position: relative;
+			sup {
+				font-size: .8rem;
+				letter-spacing: normal;
+			}
+		}
+		&__label {
+			font-size: .8rem;
+			letter-spacing: .2em;
+			text-transform: uppercase;
+		}
+		&__img {
+			position: absolute;
+			width: 20vmin;
+			height: auto;
+			top: 0%;
+			opacity: .1;
+			&_left-align {
+				left: 0%;
+				transform: translate(-50%, -60%);
+			}
+			&_right-align {
+				right: 0;
+				transform: translate(50%, -60%);
+			}
+		}
+		&__button {
+			cursor: pointer;
+			letter-spacing: .2em;
+			text-transform: uppercase;
+			width: 10em;
+			font-size: .8rem;
+			font-weight: lighter;
+			color: $dark-text-color;
+			background-color: transparent;
+			padding: .6em 1.2em;
+			border-radius: 5px;
+			margin: 0 1vw;
+			border-style: solid;
+			border-width: 2px;
+			border-color: #61dafb73;
+			box-shadow: none;
+		}
+	}
 }
 
 .generated-text {
-  color: lightgray;
-  text-align: left;
-  padding: 0 5%;
-  &_cur {
-    background-color: white;
-    padding: .2em .3em;
-    border-radius: 3px;
-    color: #282c34;
-    &.wrong {
-      background-color: #ff1c1c;
-    }
-  }
-  &_out {
-    color: lightgreen;
-  }
+	height: 30vh;
+	color: $dark-text-color;
+	text-align: left;
+	padding: 5vh 10vw 0 10vw;
+	font-size: 1.6rem;
+	letter-spacing: .08em;
+	line-height: 1.5;
+	&_cur {
+		background-color: $react-color;
+		padding: .2em .3em;
+		border-radius: 3px;
+		color: black;
+		&.wrong {
+			background-color: #f56c6c;
+		}
+	}
+	&_out {
+		color: #67C23A;
+	}
+	&__loader {
+		@include center-flex;
+		min-height: 30vh;
+	}
 }
 
 .overlay {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  z-index: 2;
-  background: rgba(40,43,49,.8);
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	z-index: 2;
+	background: rgba(40,43,49,.8);
 }

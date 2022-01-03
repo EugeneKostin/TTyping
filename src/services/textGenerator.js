@@ -7,6 +7,7 @@ const getRandomText = async () => {
         let text = await textData.json();
         // console.log(text)
         return text;
+        // return 'test data'
     } catch (e) {
         console.error('API ERROR: ', e)
         //return err

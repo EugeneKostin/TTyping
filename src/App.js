@@ -1,9 +1,10 @@
-import logo from './logo.svg';
+import { logo, speed, target } from './icons';
 import './styles/css/App.min.css';
 import getRandomText from './services/textGenerator';
 import useKeyPress from './hooks/useKeyPress';
 import React, { useState, useEffect } from 'react';
 import Result from './components/Result';
+import GeneratedText from './components/GeneratedText';
 
 function App() {
   const getCurrentTime = () => Date.now();
@@ -21,21 +22,30 @@ function App() {
   const [typedChars, setTypedChars] = useState('');
 
   // inactive, started, loading, active, finished
-  const [showResult, setShowResult] = useState(false)
-  const [appActive, setAppActive] = useState(true)
+  const [showResult, setShowResult] = useState(false);
+  const [appActive, setAppActive] = useState(true);
+  const [textLoading, setTextLoading] = useState(false);
 
   const resultProps = {
     passedChars,
     cpm,
     accuracy,
   };
+  const textProps = {
+    passedChars,
+    curCharCorrect,
+    currentChar,
+    incomingChars,
+  };
 
   useEffect(() => {
     (async () => {
+      setTextLoading(true);
       let text = await getRandomText();
       text = text.toString();
       setCurrentChar(text.charAt(0))
       setIncomingChars(text.slice(1))
+      setTextLoading(false);
     })();
   }, []);
 
@@ -91,37 +101,38 @@ function App() {
   });
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1 className='App-header__title'>Touch Typing App</h1>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className="app">
+      <header className="app-header">
+        <img src={logo} className="app-logo" alt="logo" />
+        <h1 className='app-header__title'>Touch Typing App</h1>
       </header>
-      <main className='App-content'>
-        <button onClick={() => setShowResult(true)}>show ME</button>
-        <h3>
-          Скорость: {cpm} зн./мин | Точность: {accuracy}% |
-          <button onClick={() => window.location.reload(false)} className='app-refresh-button'>Заново</button>
-        </h3>
-        <div className="generated-text">
-          <span className="generated-text_out">
-            {passedChars}
-          </span>
-          <span className={"generated-text_cur " + (curCharCorrect ? "" : "wrong")}>{currentChar}</span>
-          <span>{incomingChars}</span>
+      <main className='app-content'>
+
+        <div className='app-stat'>
+          <div className='app-stat__container'>
+            <div className='app-stat__item'>
+              <img src={speed} className="app-stat__img app-stat__img_left-align" alt="speed" />
+              <div className='app-stat__label'>Скорость</div>
+              {cpm}
+              <sup>зн./мин</sup>
+            </div>
+            <div className='app-stat__item'>
+              <img src={target} className="app-stat__img app-stat__img_right-align" alt="accuracy" />
+              <div className='app-stat__label'>Точность</div>
+              {accuracy}
+              <sup>%</sup>
+            </div>
+          </div>
+          <div className='app-stat__container'>
+            <button onClick={() => window.location.reload(false)} className='app-stat__button'>Заново</button>
+            <button onClick={() => setShowResult(true)} className='app-stat__button'>Результат</button>
+          </div>
         </div>
-        <div>
-          {showResult ? <Result resultProps={resultProps} /> : 'dont show'}
-        </div>
-      </main>
-    </div>
+          {textLoading ? <div className='generated-text__loader'><img src={logo} className="app-logo app-logo_loader" alt="logo" /></div> : <GeneratedText textProps={textProps} />}
+          {/* <div className='generated-text__loader'><img src={logo} className="app-logo app-logo_loader" alt="logo" /></div> */}
+        {showResult ? <Result resultProps={resultProps} /> : ''}
+      </main >
+    </div >
   );
 }
 

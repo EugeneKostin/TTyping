@@ -1,30 +1,31 @@
-.App {
+.app {
   min-height: 100vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  background-color: #282c34;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  padding-top: 1.2rem;
+  background-color: #fffafa;
   font-family: 'Roboto', sans-serif;
   text-align: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  color: #555555;
 }
 
-.App-logo {
-  height: 20vmin;
+.app-logo {
+  height: 15vmin;
+  width: auto;
   pointer-events: none;
-  -webkit-animation: spin 2s infinite linear;
-          animation: spin 2s infinite linear;
+  -webkit-animation: spin 2.5s infinite linear;
+          animation: spin 2.5s infinite linear;
 }
 
 @-webkit-keyframes spin {
@@ -49,17 +50,35 @@
   }
 }
 
-.App-header__title {
+.app-logo_loader {
+  -webkit-animation-duration: 1.5s;
+          animation-duration: 1.5s;
+  height: 10vmin;
+}
+
+.app-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.app-header__title {
   text-transform: uppercase;
   font-weight: 400;
   letter-spacing: .25rem;
 }
 
-.App-content {
-  padding-top: 10%;
+.app-content {
+  padding-top: 5vh;
 }
 
-.App-content__result-content {
+.app-content__result-content {
   z-index: 99;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -108,29 +127,123 @@
   }
 }
 
-.App-link {
-  color: #61dafb;
+.app-stat {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding-top: 2rem;
+}
+
+.app-stat__container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.app-stat__item {
+  margin: 5vmin;
+  font-size: 2rem;
+  text-align: left;
+  letter-spacing: .1em;
+  position: relative;
+}
+
+.app-stat__item sup {
+  font-size: .8rem;
+  letter-spacing: normal;
+}
+
+.app-stat__label {
+  font-size: .8rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+}
+
+.app-stat__img {
+  position: absolute;
+  width: 20vmin;
+  height: auto;
+  top: 0%;
+  opacity: .1;
+}
+
+.app-stat__img_left-align {
+  left: 0%;
+  -webkit-transform: translate(-50%, -60%);
+          transform: translate(-50%, -60%);
+}
+
+.app-stat__img_right-align {
+  right: 0;
+  -webkit-transform: translate(50%, -60%);
+          transform: translate(50%, -60%);
+}
+
+.app-stat__button {
+  cursor: pointer;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  width: 10em;
+  font-size: .8rem;
+  font-weight: lighter;
+  color: #555555;
+  background-color: transparent;
+  padding: .6em 1.2em;
+  border-radius: 5px;
+  margin: 0 1vw;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #61dafb73;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
 .generated-text {
-  color: lightgray;
+  height: 30vh;
+  color: #555555;
   text-align: left;
-  padding: 0 5%;
+  padding: 5vh 10vw 0 10vw;
+  font-size: 1.6rem;
+  letter-spacing: .08em;
+  line-height: 1.5;
 }
 
 .generated-text_cur {
-  background-color: white;
+  background-color: #61dafb;
   padding: .2em .3em;
   border-radius: 3px;
-  color: #282c34;
+  color: black;
 }
 
 .generated-text_cur.wrong {
-  background-color: #ff1c1c;
+  background-color: #f56c6c;
 }
 
 .generated-text_out {
-  color: lightgreen;
+  color: #67C23A;
+}
+
+.generated-text__loader {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  min-height: 30vh;
 }
 
 .overlay {
