@@ -12,6 +12,7 @@ $gray-text-color: #999999;
 sup {
 	font-size: .4em;
 	letter-spacing: normal;
+	margin-left: 0.2em;
 }
 
 .app {
@@ -98,18 +99,18 @@ sup {
 			justify-content: space-between;
 			flex-wrap: wrap;
 			margin: 1vh 0;
-			font-size: 3rem;
 			font-weight: lighter;
 			color: $gray-text-color;
-			letter-spacing: .2em;
 			text-align: left;
-			& * {
+			& > * {
 				padding: 1vh 0;
 			}
 			&-value {
+				font-size: 3rem;
 				flex-basis: 50%;
 				min-width: 200px;
 				color: $dark-text-color;
+				letter-spacing: .05em;
 			}
 			&-label {
 				flex-basis: 50%;
@@ -144,7 +145,7 @@ sup {
 			width: 20vmin;
 			height: auto;
 			top: 0%;
-			opacity: .1;
+			opacity: .05;
 			&_left-align {
 				left: 0%;
 				transform: translate(-50%, -60%);
@@ -185,7 +186,7 @@ sup {
 	height: 30vh;
 	color: $dark-text-color;
 	text-align: left;
-	padding: 5vh 10vw 0 10vw;
+	padding: 10vh 10vw 0 10vw;
 	font-size: 1.6rem;
 	letter-spacing: .08em;
 	line-height: 1.5;

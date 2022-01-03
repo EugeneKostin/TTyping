@@ -1,6 +1,7 @@
 sup {
   font-size: .4em;
   letter-spacing: normal;
+  margin-left: 0.2em;
 }
 
 .app {
@@ -173,22 +174,22 @@ sup {
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
   margin: 1vh 0;
-  font-size: 3rem;
   font-weight: lighter;
   color: #999999;
-  letter-spacing: .2em;
   text-align: left;
 }
 
-.app-content__result-item * {
+.app-content__result-item > * {
   padding: 1vh 0;
 }
 
 .app-content__result-item-value {
+  font-size: 3rem;
   -ms-flex-preferred-size: 50%;
       flex-basis: 50%;
   min-width: 200px;
   color: #555555;
+  letter-spacing: .05em;
 }
 
 .app-content__result-item-label {
@@ -242,7 +243,7 @@ sup {
   width: 20vmin;
   height: auto;
   top: 0%;
-  opacity: .1;
+  opacity: .05;
 }
 
 .app-stat__img_left-align {
@@ -288,7 +289,7 @@ sup {
   height: 30vh;
   color: #555555;
   text-align: left;
-  padding: 5vh 10vw 0 10vw;
+  padding: 10vh 10vw 0 10vw;
   font-size: 1.6rem;
   letter-spacing: .08em;
   line-height: 1.5;
