@@ -96,7 +96,7 @@ function App() {
 
     const updatedTypedChars = typedChars + key;
     setTypedChars(updatedTypedChars);
-    setAccuracy(((updatedOutgoingChars.length * 100) / updatedTypedChars.length).toFixed(1));
+    setAccuracy(((updatedOutgoingChars.length * 100) / updatedTypedChars.length).toFixed());
 
   });
 
@@ -124,12 +124,12 @@ function App() {
             </div>
           </div>
           <div className='app-stat__container'>
-            <button onClick={() => window.location.reload(false)} className='app-stat__button'>Заново</button>
-            <button onClick={() => setShowResult(true)} className='app-stat__button'>Результат</button>
+            <button onClick={() => window.location.reload(false)} className='app__button'>Заново</button>
+            <button onClick={() => { setShowResult(true); setAppActive(false) }} className='app__button'>Результат</button>
           </div>
         </div>
-          {textLoading ? <div className='generated-text__loader'><img src={logo} className="app-logo app-logo_loader" alt="logo" /></div> : <GeneratedText textProps={textProps} />}
-          {/* <div className='generated-text__loader'><img src={logo} className="app-logo app-logo_loader" alt="logo" /></div> */}
+        {textLoading ? <div className='generated-text__loader'><img src={logo} className="app-logo app-logo_loader" alt="logo" /></div> : <GeneratedText textProps={textProps} />}
+        {/* <div className='generated-text__loader'><img src={logo} className="app-logo app-logo_loader" alt="logo" /></div> */}
         {showResult ? <Result resultProps={resultProps} /> : ''}
       </main >
     </div >

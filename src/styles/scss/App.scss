@@ -2,13 +2,17 @@ $react-color: #61dafb;
 $main-bg-color: #fffafa;
 $dark-text-color: #555555;
 $gray-text-color: #999999;
-$light-gray-text-color: #cccccc;
 
 @mixin center-flex {
 	display: flex;
 	justify-content: center;
 	align-items: center;
   }
+
+sup {
+	font-size: .4em;
+	letter-spacing: normal;
+}
 
 .app {
 	min-height: 100vh;
@@ -18,7 +22,6 @@ $light-gray-text-color: #cccccc;
 	justify-content: flex-start;
 	padding-top: 1.2rem;
 	background-color: $main-bg-color;
-	font-family: 'Roboto', sans-serif;
 	text-align: center;
 	color: $dark-text-color;
 	&-logo {
@@ -51,15 +54,19 @@ $light-gray-text-color: #cccccc;
 		padding-top: 5vh;
 		&__result-content {
 			z-index: 99;
-			@include center-flex;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-around;
 			min-height: 80vh;
 			width: 80%;
 			position: fixed;
 			top: 50%;
 			left: 50%;
-			background-color: rgba(0,0,0,.9);
+			background-color: $main-bg-color;
 			animation: fade-in .3s ease-out;
 			transform: translate(-50%,-50%);
+			border-radius: 15px;
+			padding: 6vmin;
 			@keyframes fade-in {
 				from {
 					transform: scale(.2) translate(-100%, 100%);
@@ -69,6 +76,47 @@ $light-gray-text-color: #cccccc;
 					transform: scale(1) translate(-50%, -50%);
 					opacity: 1;
 				}
+			}
+		}
+		&__result-header {
+			font-size: 1.6rem;
+			text-transform: uppercase;
+			letter-spacing: .2em;
+			padding-top: 5vh;
+		}
+		&__result-container {
+			@include center-flex;
+			flex-direction: column;
+			padding: 3vmin;
+		}
+		&__result-item {
+			min-height: 100px;
+			width: 100%;
+			max-width: 400px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			flex-wrap: wrap;
+			margin: 1vh 0;
+			font-size: 3rem;
+			font-weight: lighter;
+			color: $gray-text-color;
+			letter-spacing: .2em;
+			text-align: left;
+			& * {
+				padding: 1vh 0;
+			}
+			&-value {
+				flex-basis: 50%;
+				min-width: 200px;
+				color: $dark-text-color;
+			}
+			&-label {
+				flex-basis: 50%;
+				font-size: .8rem;
+				text-transform: uppercase;
+				white-space: nowrap;
+				letter-spacing: .2em;
 			}
 		}
 	}
@@ -85,10 +133,6 @@ $light-gray-text-color: #cccccc;
 			text-align: left;
 			letter-spacing: .1em;
 			position: relative;
-			sup {
-				font-size: .8rem;
-				letter-spacing: normal;
-			}
 		}
 		&__label {
 			font-size: .8rem;
@@ -110,22 +154,29 @@ $light-gray-text-color: #cccccc;
 				transform: translate(50%, -60%);
 			}
 		}
-		&__button {
-			cursor: pointer;
-			letter-spacing: .2em;
-			text-transform: uppercase;
-			width: 10em;
-			font-size: .8rem;
-			font-weight: lighter;
-			color: $dark-text-color;
-			background-color: transparent;
-			padding: .6em 1.2em;
-			border-radius: 5px;
-			margin: 0 1vw;
-			border-style: solid;
-			border-width: 2px;
-			border-color: #61dafb73;
-			box-shadow: none;
+	}
+	&__button {
+		cursor: pointer;
+		letter-spacing: .2em;
+		text-transform: uppercase;
+		width: 10em;
+		font-size: .8rem;
+		font-weight: lighter;
+		color: $dark-text-color;
+		background-color: transparent;
+		padding: .6em 1.2em;
+		border-radius: 5px;
+		margin: 0 1vw;
+		border-style: solid;
+		border-width: 2px;
+		border-color: #61dafb73;
+		box-shadow: none;
+		&_large {
+			margin: 0 auto;
+			width: 80%;
+			min-width: 200px;
+			max-width: 40vw;
+			padding: 1em 1.2em;
 		}
 	}
 }
@@ -163,5 +214,5 @@ $light-gray-text-color: #cccccc;
 	top: 0;
 	left: 0;
 	z-index: 2;
-	background: rgba(40,43,49,.8);
+	background: rgba(0, 0, 0, 0.8);
 }
