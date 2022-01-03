@@ -1,6 +1,8 @@
 # Touch Typing React App
 An application used to train users on touch typing.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
 Link: https://eugenekostin.github.io/ttyping/
 
 ## Status
@@ -13,9 +15,9 @@ You will need `node` installed globally on your machine:
 
 Clone down this repository:
 
-'git clone {the url to the GitHub repo}'
+`git clone git@github.com:EugeneKostin/ttyping.git`
 
-Installation ('cd' into the new folder and type):
+Installation (`cd` into the new folder and type):
 
 `npm install`
 
